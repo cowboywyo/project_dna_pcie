@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-//Date        : Tue Mar 23 00:01:50 2021
+//Date        : Tue Mar 23 23:02:15 2021
 //Host        : Laptop-Acer running 64-bit major release  (build 9200)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -11,25 +11,22 @@
 
 (* CORE_GENERATION_INFO = "design_1,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=design_1,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=9,numReposBlks=7,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,da_board_cnt=6,da_clkrst_cnt=2,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "design_1.hwdef" *) 
 module design_1
-   (clk_100MHz,
-    clk_100MHz_1,
-    pci_express_x1_rxn,
+   (pci_express_x1_rxn,
     pci_express_x1_rxp,
     pci_express_x1_txn,
     pci_express_x1_txp,
     pcie_perstn,
+    ref_clk,
     resetn);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK_100MHZ CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK_100MHZ, CLK_DOMAIN design_1_clk_100MHz, FREQ_HZ 100000000, INSERT_VIP 0, PHASE 0.000" *) input clk_100MHz;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK_100MHZ_1 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK_100MHZ_1, CLK_DOMAIN design_1_clk_100MHz_1, FREQ_HZ 100000000, INSERT_VIP 0, PHASE 0.000" *) input clk_100MHz_1;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie_7x_mgt:1.0 pci_express_x1 rxn" *) input pci_express_x1_rxn;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie_7x_mgt:1.0 pci_express_x1 rxp" *) input pci_express_x1_rxp;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie_7x_mgt:1.0 pci_express_x1 txn" *) output pci_express_x1_txn;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie_7x_mgt:1.0 pci_express_x1 txp" *) output pci_express_x1_txp;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.PCIE_PERSTN RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.PCIE_PERSTN, INSERT_VIP 0, POLARITY ACTIVE_LOW" *) input pcie_perstn;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.REF_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.REF_CLK, CLK_DOMAIN design_1_clk_100MHz, FREQ_HZ 100000000, INSERT_VIP 0, PHASE 0.000" *) input ref_clk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.RESETN RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.RESETN, INSERT_VIP 0, POLARITY ACTIVE_LOW" *) input resetn;
 
-  wire \^clk_100MHz_1 ;
-  wire clk_100MHz_1_1;
+  wire clk_100MHz_1;
   wire clk_wiz_1_clk_out1;
   wire clk_wiz_clk_out1;
   wire pcie_perstn_1;
@@ -96,8 +93,7 @@ module design_1
   wire [0:0]xdma_0_pcie_mgt_txn;
   wire [0:0]xdma_0_pcie_mgt_txp;
 
-  assign \^clk_100MHz_1  = clk_100MHz;
-  assign clk_100MHz_1_1 = clk_100MHz_1;
+  assign clk_100MHz_1 = ref_clk;
   assign pci_express_x1_txn = xdma_0_pcie_mgt_txn;
   assign pci_express_x1_txp = xdma_0_pcie_mgt_txp;
   assign pcie_perstn_1 = pcie_perstn;
@@ -127,11 +123,11 @@ module design_1
         .s00_axi_wstrb(xdma_0_axi_periph_M00_AXI_WSTRB),
         .s00_axi_wvalid(xdma_0_axi_periph_M00_AXI_WVALID));
   design_1_clk_wiz_0 clk_wiz
-       (.clk_in1(\^clk_100MHz_1 ),
+       (.clk_in1(clk_100MHz_1),
         .clk_out1(clk_wiz_clk_out1),
         .reset(util_vector_logic_0_Res));
   design_1_clk_wiz_1_0 clk_wiz_1
-       (.clk_in1(clk_100MHz_1_1),
+       (.clk_in1(clk_100MHz_1),
         .clk_out1(clk_wiz_1_clk_out1),
         .reset(util_vector_logic_0_Res));
   design_1_util_vector_logic_0_0 util_vector_logic_0

@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x2CBD3C118B38EF89",
+      "boundary_crc": "0x37900B51AA08FB4A",
       "device": "xcu200-fsgd2104-2-e",
       "name": "design_1",
       "synth_flow_mode": "Hierarchical",
@@ -54,33 +54,12 @@
           }
         }
       },
-      "clk_100MHz": {
+      "ref_clk": {
         "type": "clk",
         "direction": "I",
         "parameters": {
           "CLK_DOMAIN": {
             "value": "design_1_clk_100MHz",
-            "value_src": "default"
-          },
-          "FREQ_HZ": {
-            "value": "100000000"
-          },
-          "INSERT_VIP": {
-            "value": "0",
-            "value_src": "default"
-          },
-          "PHASE": {
-            "value": "0.000",
-            "value_src": "default"
-          }
-        }
-      },
-      "clk_100MHz_1": {
-        "type": "clk",
-        "direction": "I",
-        "parameters": {
-          "CLK_DOMAIN": {
-            "value": "design_1_clk_100MHz_1",
             "value_src": "default"
           },
           "FREQ_HZ": {
@@ -276,10 +255,10 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_ds": {
+              "auto_ds_to_auto_pc": {
                 "interface_ports": [
-                  "S_AXI",
-                  "auto_ds/S_AXI"
+                  "auto_ds/M_AXI",
+                  "auto_pc/S_AXI"
                 ]
               },
               "auto_pc_to_s00_couplers": {
@@ -288,10 +267,10 @@
                   "auto_pc/M_AXI"
                 ]
               },
-              "auto_ds_to_auto_pc": {
+              "s00_couplers_to_auto_ds": {
                 "interface_ports": [
-                  "auto_ds/M_AXI",
-                  "auto_pc/S_AXI"
+                  "S_AXI",
+                  "auto_ds/S_AXI"
                 ]
               }
             },
@@ -314,16 +293,16 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_xdma_0_axi_periph": {
-            "interface_ports": [
-              "M00_AXI",
-              "s00_couplers/M_AXI"
-            ]
-          },
           "xdma_0_axi_periph_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_xdma_0_axi_periph": {
+            "interface_ports": [
+              "M00_AXI",
+              "s00_couplers/M_AXI"
             ]
           }
         },
@@ -426,13 +405,8 @@
       },
       "clk_100MHz_1": {
         "ports": [
-          "clk_100MHz",
-          "clk_wiz/clk_in1"
-        ]
-      },
-      "clk_100MHz_1_1": {
-        "ports": [
-          "clk_100MHz_1",
+          "ref_clk",
+          "clk_wiz/clk_in1",
           "clk_wiz_1/clk_in1"
         ]
       },

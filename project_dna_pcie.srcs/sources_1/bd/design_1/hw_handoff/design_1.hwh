@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 23 00:02:32 2021" VIVADOVERSION="2018.3">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 23 23:02:21 2021" VIVADOVERSION="2018.3">
 
   <SYSTEMINFO ARCH="virtexuplus" BOARD="xilinx.com:au200:part0:1.0" DEVICE="xcu200" NAME="design_1" PACKAGE="fsgd2104" SPEEDGRADE="-2"/>
 
@@ -34,13 +34,9 @@
         <CONNECTION INSTANCE="util_vector_logic_0" PORT="Op1"/>
       </CONNECTIONS>
     </PORT>
-    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_100MHz" SIGIS="clk" SIGNAME="External_Ports_clk_100MHz">
+    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="ref_clk" SIGIS="clk" SIGNAME="External_Ports_ref_clk">
       <CONNECTIONS>
         <CONNECTION INSTANCE="clk_wiz" PORT="clk_in1"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_100MHz_1" SIGIS="clk" SIGNAME="External_Ports_clk_100MHz_1">
-      <CONNECTIONS>
         <CONNECTION INSTANCE="clk_wiz_1" PORT="clk_in1"/>
       </CONNECTIONS>
     </PORT>
@@ -812,9 +808,9 @@
             <CONNECTION INSTANCE="util_vector_logic_0" PORT="Res"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_in1" SIGIS="clk" SIGNAME="External_Ports_clk_100MHz">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_in1" SIGIS="clk" SIGNAME="External_Ports_ref_clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="clk_100MHz"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="ref_clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="clk_out1" SIGIS="clk" SIGNAME="clk_wiz_clk_out1">
@@ -1401,9 +1397,9 @@
             <CONNECTION INSTANCE="util_vector_logic_0" PORT="Res"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_in1" SIGIS="clk" SIGNAME="External_Ports_clk_100MHz_1">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="clk_in1" SIGIS="clk" SIGNAME="External_Ports_ref_clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="clk_100MHz_1"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="ref_clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="clk_out1" SIGIS="clk" SIGNAME="clk_wiz_1_clk_out1">

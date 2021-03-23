@@ -1,0 +1,7 @@
+set_property SRC_FILE_INFO {cfile:C:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/constrs_1/new/project_dna_pcie.xdc rfile:../../../project_dna_pcie.srcs/constrs_1/new/project_dna_pcie.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:15 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict {PACKAGE_PIN AY37 IOSTANDARD LVCMOS12} [get_ports ref_clk]
+set_property src_info {type:XDC file:1 line:18 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN BD21                    [get_ports pcie_perstn_rst]
+set_property src_info {type:XDC file:1 line:23 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN BD21 [get_ports resetn]

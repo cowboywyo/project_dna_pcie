@@ -159,18 +159,14 @@ proc create_root_design { parentCell } {
   set pci_express_x1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_express_x1 ]
 
   # Create ports
-  set clk_100MHz [ create_bd_port -dir I -type clk clk_100MHz ]
-  set_property -dict [ list \
-   CONFIG.FREQ_HZ {100000000} \
- ] $clk_100MHz
-  set clk_100MHz_1 [ create_bd_port -dir I -type clk clk_100MHz_1 ]
-  set_property -dict [ list \
-   CONFIG.FREQ_HZ {100000000} \
- ] $clk_100MHz_1
   set pcie_perstn [ create_bd_port -dir I -type rst pcie_perstn ]
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
  ] $pcie_perstn
+  set ref_clk [ create_bd_port -dir I -type clk ref_clk ]
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {100000000} \
+ ] $ref_clk
   set resetn [ create_bd_port -dir I -type rst resetn ]
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
@@ -220,8 +216,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net xdma_0_pcie_mgt [get_bd_intf_ports pci_express_x1] [get_bd_intf_pins xdma_0/pcie_mgt]
 
   # Create port connections
-  connect_bd_net -net clk_100MHz_1 [get_bd_ports clk_100MHz] [get_bd_pins clk_wiz/clk_in1]
-  connect_bd_net -net clk_100MHz_1_1 [get_bd_ports clk_100MHz_1] [get_bd_pins clk_wiz_1/clk_in1]
+  connect_bd_net -net clk_100MHz_1 [get_bd_ports ref_clk] [get_bd_pins clk_wiz/clk_in1] [get_bd_pins clk_wiz_1/clk_in1]
   connect_bd_net -net clk_wiz_1_clk_out1 [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins xdma_0/sys_clk_gt]
   connect_bd_net -net clk_wiz_clk_out1 [get_bd_pins clk_wiz/clk_out1] [get_bd_pins xdma_0/sys_clk]
   connect_bd_net -net pcie_perstn_1 [get_bd_ports pcie_perstn] [get_bd_pins xdma_0/sys_rst_n]
