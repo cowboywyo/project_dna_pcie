@@ -157,76 +157,62 @@ proc create_root_design { parentCell } {
 
   # Create interface ports
   set pci_express_x1 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:pcie_7x_mgt_rtl:1.0 pci_express_x1 ]
+  set pcie_refclk [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 pcie_refclk ]
+  set_property -dict [ list \
+   CONFIG.FREQ_HZ {100000000} \
+   ] $pcie_refclk
 
   # Create ports
   set pcie_perstn [ create_bd_port -dir I -type rst pcie_perstn ]
   set_property -dict [ list \
    CONFIG.POLARITY {ACTIVE_LOW} \
  ] $pcie_perstn
-  set ref_clk [ create_bd_port -dir I -type clk ref_clk ]
-  set_property -dict [ list \
-   CONFIG.FREQ_HZ {100000000} \
- ] $ref_clk
-  set resetn [ create_bd_port -dir I -type rst resetn ]
-  set_property -dict [ list \
-   CONFIG.POLARITY {ACTIVE_LOW} \
- ] $resetn
 
   # Create instance: AXI_DNA_0, and set properties
   set AXI_DNA_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:AXI_DNA:1.0 AXI_DNA_0 ]
 
-  # Create instance: clk_wiz, and set properties
-  set clk_wiz [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz ]
+  # Create instance: util_ds_buf, and set properties
+  set util_ds_buf [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_ds_buf:2.1 util_ds_buf ]
   set_property -dict [ list \
-   CONFIG.RESET_BOARD_INTERFACE {resetn} \
+   CONFIG.C_BUF_TYPE {IBUFDSGTE} \
+   CONFIG.DIFF_CLK_IN_BOARD_INTERFACE {pcie_refclk} \
    CONFIG.USE_BOARD_FLOW {true} \
- ] $clk_wiz
-
-  # Create instance: clk_wiz_1, and set properties
-  set clk_wiz_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_1 ]
-  set_property -dict [ list \
-   CONFIG.RESET_BOARD_INTERFACE {resetn} \
-   CONFIG.USE_BOARD_FLOW {true} \
- ] $clk_wiz_1
-
-  # Create instance: util_vector_logic_0, and set properties
-  set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0 ]
-  set_property -dict [ list \
-   CONFIG.C_OPERATION {not} \
-   CONFIG.C_SIZE {1} \
-   CONFIG.LOGO_FILE {data/sym_notgate.png} \
- ] $util_vector_logic_0
+ ] $util_ds_buf
 
   # Create instance: xdma_0, and set properties
   set xdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xdma:4.1 xdma_0 ]
   set_property -dict [ list \
    CONFIG.PCIE_BOARD_INTERFACE {pci_express_x1} \
    CONFIG.SYS_RST_N_BOARD_INTERFACE {pcie_perstn} \
+   CONFIG.axilite_master_en {true} \
+   CONFIG.pciebar2axibar_axist_bypass {0x0000000000000000} \
+   CONFIG.xdma_axi_intf_mm {AXI_Memory_Mapped} \
  ] $xdma_0
 
   # Create instance: xdma_0_axi_periph, and set properties
   set xdma_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 xdma_0_axi_periph ]
   set_property -dict [ list \
    CONFIG.NUM_MI {1} \
+   CONFIG.NUM_SI {2} \
  ] $xdma_0_axi_periph
 
   # Create interface connections
-  connect_bd_intf_net -intf_net xdma_0_M_AXI [get_bd_intf_pins xdma_0/M_AXI] [get_bd_intf_pins xdma_0_axi_periph/S00_AXI]
+  connect_bd_intf_net -intf_net pcie_refclk_1 [get_bd_intf_ports pcie_refclk] [get_bd_intf_pins util_ds_buf/CLK_IN_D]
+  connect_bd_intf_net -intf_net xdma_0_M_AXI [get_bd_intf_pins xdma_0/M_AXI] [get_bd_intf_pins xdma_0_axi_periph/S01_AXI]
+  connect_bd_intf_net -intf_net xdma_0_M_AXI_LITE [get_bd_intf_pins xdma_0/M_AXI_LITE] [get_bd_intf_pins xdma_0_axi_periph/S00_AXI]
   connect_bd_intf_net -intf_net xdma_0_axi_periph_M00_AXI [get_bd_intf_pins AXI_DNA_0/S00_AXI] [get_bd_intf_pins xdma_0_axi_periph/M00_AXI]
   connect_bd_intf_net -intf_net xdma_0_pcie_mgt [get_bd_intf_ports pci_express_x1] [get_bd_intf_pins xdma_0/pcie_mgt]
 
   # Create port connections
-  connect_bd_net -net clk_100MHz_1 [get_bd_ports ref_clk] [get_bd_pins clk_wiz/clk_in1] [get_bd_pins clk_wiz_1/clk_in1]
-  connect_bd_net -net clk_wiz_1_clk_out1 [get_bd_pins clk_wiz_1/clk_out1] [get_bd_pins xdma_0/sys_clk_gt]
-  connect_bd_net -net clk_wiz_clk_out1 [get_bd_pins clk_wiz/clk_out1] [get_bd_pins xdma_0/sys_clk]
   connect_bd_net -net pcie_perstn_1 [get_bd_ports pcie_perstn] [get_bd_pins xdma_0/sys_rst_n]
-  connect_bd_net -net resetn_1 [get_bd_ports resetn] [get_bd_pins util_vector_logic_0/Op1]
-  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins clk_wiz/reset] [get_bd_pins clk_wiz_1/reset] [get_bd_pins util_vector_logic_0/Res]
-  connect_bd_net -net xdma_0_axi_aclk [get_bd_pins AXI_DNA_0/s00_axi_aclk] [get_bd_pins xdma_0/axi_aclk] [get_bd_pins xdma_0_axi_periph/ACLK] [get_bd_pins xdma_0_axi_periph/M00_ACLK] [get_bd_pins xdma_0_axi_periph/S00_ACLK]
-  connect_bd_net -net xdma_0_axi_aresetn [get_bd_pins AXI_DNA_0/s00_axi_aresetn] [get_bd_pins xdma_0/axi_aresetn] [get_bd_pins xdma_0_axi_periph/ARESETN] [get_bd_pins xdma_0_axi_periph/M00_ARESETN] [get_bd_pins xdma_0_axi_periph/S00_ARESETN]
+  connect_bd_net -net util_ds_buf_IBUF_DS_ODIV2 [get_bd_pins util_ds_buf/IBUF_DS_ODIV2] [get_bd_pins xdma_0/sys_clk]
+  connect_bd_net -net util_ds_buf_IBUF_OUT [get_bd_pins util_ds_buf/IBUF_OUT] [get_bd_pins xdma_0/sys_clk_gt]
+  connect_bd_net -net xdma_0_axi_aclk [get_bd_pins AXI_DNA_0/s00_axi_aclk] [get_bd_pins xdma_0/axi_aclk] [get_bd_pins xdma_0_axi_periph/ACLK] [get_bd_pins xdma_0_axi_periph/M00_ACLK] [get_bd_pins xdma_0_axi_periph/S00_ACLK] [get_bd_pins xdma_0_axi_periph/S01_ACLK]
+  connect_bd_net -net xdma_0_axi_aresetn [get_bd_pins AXI_DNA_0/s00_axi_aresetn] [get_bd_pins xdma_0/axi_aresetn] [get_bd_pins xdma_0_axi_periph/ARESETN] [get_bd_pins xdma_0_axi_periph/M00_ARESETN] [get_bd_pins xdma_0_axi_periph/S00_ARESETN] [get_bd_pins xdma_0_axi_periph/S01_ARESETN]
 
   # Create address segments
   create_bd_addr_seg -range 0x00010000 -offset 0x44A00000 [get_bd_addr_spaces xdma_0/M_AXI] [get_bd_addr_segs AXI_DNA_0/S00_AXI/S00_AXI_reg] SEG_AXI_DNA_0_S00_AXI_reg
+  create_bd_addr_seg -range 0x00010000 -offset 0x44A00000 [get_bd_addr_spaces xdma_0/M_AXI_LITE] [get_bd_addr_segs AXI_DNA_0/S00_AXI/S00_AXI_reg] SEG_AXI_DNA_0_S00_AXI_reg
 
 
   # Restore current instance

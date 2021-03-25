@@ -21,9 +21,6 @@ set_param power.BramSDPPropagationFix 1
 set_param power.enableUnconnectedCarry8PinPower 1
 set_param power.enableCarry8RouteBelPower 1
 set_param power.enableLutRouteBelPower 1
-set_param synth.incrementalSynthesisCache C:/Users/User/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-9916-Laptop-Acer/incrSyn
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 create_project -in_memory -part xcu200-fsgd2104-2-e
 
 set_param project.singleFileAddWarning.threshold 0
@@ -42,28 +39,38 @@ set_property ip_output_repo c:/Project/u200/project_dna_pcie/project_dna_pcie.ca
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib C:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/hdl/design_1_wrapper.v
 add_files C:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/design_1.bd
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/ip_0/synth/design_1_xdma_0_0_pcie4_ip_gt_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/ip_0/synth/design_1_xdma_0_0_pcie4_ip_gt.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/design_1_xdma_0_0_pcie4_ip_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/synth/design_1_xdma_0_0_pcie4_ip_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/synth/design_1_xdma_0_0_pcie4_ip_late.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_0/source/ip_pcie4_uscale_plus_x1y2.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_1/xdma_v4_1_2_blk_mem_64_reg_be_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/ip_2/xdma_v4_1_2_blk_mem_64_noreg_be_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/design_1_xdma_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/source/design_1_xdma_0_0_pcie4_uscaleplus_ip.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_0/synth/design_1_xdma_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_0/design_1_clk_wiz_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_1_0/design_1_clk_wiz_1_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_1_0/design_1_clk_wiz_1_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_clk_wiz_1_0/design_1_clk_wiz_1_0_ooc.xdc]
-set_property used_in_synthesis false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/ip_0/synth/design_1_xdma_0_2_pcie4_ip_gt_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/ip_0/synth/design_1_xdma_0_2_pcie4_ip_gt.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/design_1_xdma_0_2_pcie4_ip_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/synth/design_1_xdma_0_2_pcie4_ip_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/synth/design_1_xdma_0_2_pcie4_ip_late.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_0/source/ip_pcie4_uscale_plus_x1y2.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_1/xdma_v4_1_2_blk_mem_64_reg_be_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/ip_2/xdma_v4_1_2_blk_mem_64_noreg_be_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/design_1_xdma_0_2_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/source/design_1_xdma_0_2_pcie4_uscaleplus_ip.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xdma_0_2/synth/design_1_xdma_0_2_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_util_ds_buf_0/design_1_util_ds_buf_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_util_ds_buf_0/design_1_util_ds_buf_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_xbar_0/design_1_xbar_0_ooc.xdc]
+set_property used_in_synthesis false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_1/design_1_auto_ds_1_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_1/design_1_auto_ds_1_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_ds_1/design_1_auto_ds_1_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/ip/design_1_auto_pc_1/design_1_auto_pc_1_ooc.xdc]
 set_property used_in_implementation false [get_files -all C:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/bd/design_1/design_1_ooc.xdc]
+
+read_ip -quiet c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/xdma_0.xci
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/ip_0/synth/xdma_0_pcie4_ip_gt_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/ip_0/synth/xdma_0_pcie4_ip_gt.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/xdma_0_pcie4_ip_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/synth/xdma_0_pcie4_ip_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/synth/xdma_0_pcie4_ip_late.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_0/source/ip_pcie4_uscale_plus_x1y2.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_1/xdma_v4_1_2_blk_mem_64_reg_be_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/ip_2/xdma_v4_1_2_blk_mem_64_noreg_be_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/xdma_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/source/xdma_0_pcie4_uscaleplus_ip.xdc]
+set_property used_in_implementation false [get_files -all c:/Project/u200/project_dna_pcie/project_dna_pcie.srcs/sources_1/ip/xdma_0/synth/xdma_0_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
